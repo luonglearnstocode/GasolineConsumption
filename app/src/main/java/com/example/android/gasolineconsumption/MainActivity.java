@@ -1,5 +1,8 @@
 package com.example.android.gasolineconsumption;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,8 +11,11 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String PREF = "TestPref";
     private String unit;
     private double averageLkm;
     private double maxLkm;
@@ -23,11 +29,28 @@ public class MainActivity extends AppCompatActivity {
     private double max;
     private double min;
     private double last;
+    private ArrayList<String> data;
+    private Set<String> set = new HashSet<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        SharedPreferences prefGet = getSharedPreferences(PREF, Activity.MODE_PRIVATE);
+//        set = prefGet.getStringSet("key", null);
+
+//        if (set != null) {
+//            data = new ArrayList<String>();
+//            data.addAll(set);
+//        } else {
+//            data = new ArrayList<String>();
+////            data.add("16.12.2015\t120567\t42");
+////            data.add("2.1.2016\t120869\t38");
+////            data.add("9.1.2016\t121146\t43");
+////            data.add("13.1.2016\t121459\t39");
+//        }
+
 
         ArrayList<Integer> odometerValue = new ArrayList<Integer>();
         ArrayList<Integer> distances = new ArrayList<Integer>();
@@ -35,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Double> consumption = new ArrayList<Double>();
 
         //list of initial data
-        ArrayList<String> data = new ArrayList<String>();
+        //ArrayList<String> data = new ArrayList<String>();
+        data = new ArrayList<String>();
         data.add("16.12.2015\t120567\t42");
         data.add("2.1.2016\t120869\t38");
         data.add("9.1.2016\t121146\t43");
@@ -63,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         averageLkm = 0;
         maxLkm = 0;
         minLkm = consumption.get(0);
-        lastLkm = consumption.get(0);
-
+        //minLkm = 0;
+        lastLkm = 0;
         //calculate the average of consumption, max and min
         for (double value : consumption) {
             sum += value;
@@ -151,5 +175,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         translate();
+    }
+
+    public void add(View view) {
+        Intent getNewData = new Intent(this, Second.class);
+        startActivity(getNewData);
+
+        SharedPreferences prefPut = getSharedPreferences(PREF, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = prefPut.edit();
+
+        Set<String> set = new HashSet<String>();
+        set.addAll(data);
+        prefEditor.putStringSet("key", set);
+        prefEditor.commit();
+        //translate();
+    }
+
+    public void showHistory(View view) {
     }
 }

@@ -93,13 +93,17 @@
         android:text="" />
 
     <Button
+        android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="add"
         android:text="add"/>
 
     <Button
+        android:id="@+id/history_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showHistory"
         android:text="History" />
 
 </LinearLayout>
