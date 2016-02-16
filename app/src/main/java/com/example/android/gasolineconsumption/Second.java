@@ -14,10 +14,9 @@ import java.util.Set;
 
 public class Second extends AppCompatActivity {
     private static final String PREF = "TestPref";
-    private Set<String> set = new HashSet<String>();
+    private Set<String> set;
     private String dataAdded;
     private ArrayList<String> data;
-    ;
     private int odometerValue = 0;
     private int fuelAmount = 0;
 
@@ -59,12 +58,16 @@ public class Second extends AppCompatActivity {
 
         SharedPreferences prefPut = getSharedPreferences(PREF, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = prefPut.edit();
+
         data.add(dataAdded);
+        set = new HashSet<String>();
+        set.addAll(data);
+
         prefEditor.putStringSet("key", set);
         prefEditor.commit();
 
-        //finish();
-        Intent main = new Intent(this, MainActivity.class);
-        startActivity(main);
+//        Intent main = new Intent(this, MainActivity.class);
+//        startActivity(main);
+        finish();
     }
 }

@@ -16,6 +16,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREF = "TestPref";
+    private final int GET_SECACT_RES = 6;
     private String unit;
     private double averageLkm;
     private double maxLkm;
@@ -65,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
         data.add("9.1.2016\t121146\t43");
         data.add("13.1.2016\t121459\t39");
 
+        if (set.size() != 0) {
+            SharedPreferences prefGet = getSharedPreferences(PREF, Activity.MODE_PRIVATE);
+            set = prefGet.getStringSet("key", null);
+            data = new ArrayList<String>();
+            data.addAll(set);
+        }
+
+
+
+
         //for each string in data, split, add value to odometerValue and fuelAmount
         for (String datum : data) {
             String[] datumsplitted = datum.split("\t");
@@ -76,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 1; i < odometerValue.size(); i++){
             distances.add(odometerValue.get(i)-odometerValue.get(i-1));
         }
+
 
         //calculate fuel consumption for each distance
         for (int i = 0; i < distances.size(); i++){
@@ -180,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
     public void add(View view) {
         Intent getNewData = new Intent(this, Second.class);
         startActivity(getNewData);
+        //startActivity(getNewData);
 
         SharedPreferences prefPut = getSharedPreferences(PREF, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = prefPut.edit();
@@ -190,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         prefEditor.commit();
         //translate();
     }
+
 
     public void showHistory(View view) {
     }
