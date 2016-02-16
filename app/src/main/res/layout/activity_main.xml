@@ -11,63 +11,95 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.androidproject.MainActivity">
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prefered Unit" />
+
+        <RadioButton
+            android:id="@+id/radio_l100km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="onRadioButtonClicked"
+            android:text="L/100 km" />
+
+        <RadioButton
+            android:id="@+id/radio_mpg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="MPG" />
+    </RadioGroup>
     <TextView
-        android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Average" />
+        android:padding="8dp"
+        android:text="Average"
+        android:textSize="24sp" />
 
     <TextView
-        android:textSize="24sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/average"
-        android:padding="16dp"
-        android:text="" />
-
-    <TextView
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text=""
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
         android:text="Max" />
 
     <TextView
-        android:padding="16dp"
+        android:id="@+id/max"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/max"
+        android:padding="8dp"
         android:text="" />
 
     <TextView
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:text="Min" />
 
     <TextView
-        android:padding="16dp"
+        android:id="@+id/min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/min"
+        android:padding="8dp"
         android:text="" />
 
     <TextView
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:text="Last" />
 
     <TextView
-        android:padding="16dp"
+        android:id="@+id/last"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/last"
+        android:padding="8dp"
         android:text="" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="add"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="History" />
 
 </LinearLayout>

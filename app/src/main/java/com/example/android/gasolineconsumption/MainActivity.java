@@ -3,12 +3,26 @@ package com.example.android.gasolineconsumption;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    private String unit;
+    private double averageLkm;
+    private double maxLkm;
+    private double minLkm;
+    private double lastLkm;
+    private double averageMpg;
+    private double maxMpg;
+    private double minMpg;
+    private double lastMpg;
+    private double average;
+    private double max;
+    private double min;
+    private double last;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,41 +58,98 @@ public class MainActivity extends AppCompatActivity {
             consumption.add((double) fuelAmount.get(i)/distances.get(i)*100);
         }
 
+        //result for L/100km unit
         double sum = 0;
-        double average = 0;
-        double max = 0;
-        double min = consumption.get(0);
-        double last = consumption.get(0);
+        averageLkm = 0;
+        maxLkm = 0;
+        minLkm = consumption.get(0);
+        lastLkm = consumption.get(0);
+
         //calculate the average of consumption, max and min
         for (double value : consumption) {
             sum += value;
-            average = sum/consumption.size();
-            if (value > max) {
-                max = value;
+            averageLkm = sum / consumption.size();
+            if (value > maxLkm) {
+                maxLkm = value;
             }
-            if (value < min) {
-                min = value;
+            if (value < minLkm) {
+                minLkm = value;
             }
-            last = value;
+            lastLkm = value;
+        }
+
+        //result for Mpg unit
+        averageMpg = 235.214 / averageLkm;
+        maxMpg = 235.214 / maxLkm;
+        minMpg = 235.214 / minLkm;
+        lastMpg = 235.214 / lastLkm;
+
+        unit = "lkm";
+
+        if (unit.equals("lkm")) {
+            average = averageLkm;
+            max = maxLkm;
+            min = minLkm;
+            last = lastLkm;
+        } else {
+            average = averageMpg;
+            max = maxMpg;
+            min = minMpg;
+            last = lastMpg;
+        }
+
+        translate();
+    }
+
+    public void translate() {
+        if (unit.equals("lkm")) {
+            average = averageLkm;
+            max = maxLkm;
+            min = minLkm;
+            last = lastLkm;
+        } else {
+            average = averageMpg;
+            max = maxMpg;
+            min = minMpg;
+            last = lastMpg;
         }
 
         //and text to textviews
-        average = Math.round(average*100.0)/100.0;//round up to 2 decimal numbers
+        average = Math.round(average * 100.0) / 100.0;//round up to 2 decimal numbers
         TextView average_text_view = (TextView) findViewById(R.id.average);
         average_text_view.setText(Double.toString(average));
 
-        max = Math.round(max*100.0)/100.0;
+        max = Math.round(max * 100.0) / 100.0;
         TextView max_text_view = (TextView) findViewById(R.id.max);
         max_text_view.setText(Double.toString(max));
 
-        min = Math.round(min*100.0)/100.0;
+        min = Math.round(min * 100.0) / 100.0;
         TextView min_text_view = (TextView) findViewById(R.id.min);
         min_text_view.setText(Double.toString(min));
 
-        last = Math.round(last*100.0)/100.0;
+        last = Math.round(last * 100.0) / 100.0;
         TextView last_text_view = (TextView) findViewById(R.id.last);
         last_text_view.setText(Double.toString(last));
-
     }
 
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.radio_l100km:
+                if (checked) {
+                    unit = "lkm";
+                }
+                break;
+            case R.id.radio_mpg:
+                if (checked) {
+                    unit = "mpg";
+                }
+                break;
+        }
+        translate();
+    }
 }
