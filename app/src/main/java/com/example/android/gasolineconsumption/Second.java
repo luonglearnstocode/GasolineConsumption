@@ -39,13 +39,17 @@ public class Second extends AppCompatActivity {
         } else {
             EditText fuel = (EditText) findViewById(R.id.fuel_amount);
             fuelAmount = Integer.parseInt(fuel.getText().toString());
-            Date date = new Date();
-            SimpleDateFormat ft = new SimpleDateFormat("yyyy.dd.MM 'at' hh:mm:ss");
-            dataAdded = ft.format(date) + "\t\t\t\t\t\t" + odometerValue + "\t\t\t\t\t\t" + fuelAmount;
-            Intent back = new Intent();
-            back.putExtra("newdata", dataAdded);
-            setResult(RESULT_OK, back);
-            finish();
+            if (fuelAmount <= 0) {
+                fuel.setError("invalid input!");
+            } else {
+                Date date = new Date();
+                SimpleDateFormat ft = new SimpleDateFormat("yyyy.dd.MM 'at' hh:mm:ss");
+                dataAdded = ft.format(date) + "\t\t\t\t\t\t" + odometerValue + "\t\t\t\t\t\t" + fuelAmount;
+                Intent back = new Intent();
+                back.putExtra("newdata", dataAdded);
+                setResult(RESULT_OK, back);
+                finish();
+            }
         }
     }
 }
