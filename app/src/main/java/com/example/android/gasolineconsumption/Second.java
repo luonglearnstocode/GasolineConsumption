@@ -40,7 +40,7 @@ public class Second extends AppCompatActivity {
             EditText fuel = (EditText) findViewById(R.id.fuel_amount);
             fuelAmount = Integer.parseInt(fuel.getText().toString());
             if (fuelAmount <= 0) {
-                fuel.setError("invalid input!");
+                fuel.setError("invalid fuel amount input!");
             } else {
                 Date date = new Date();
                 SimpleDateFormat ft = new SimpleDateFormat("yyyy.dd.MM 'at' hh:mm:ss");
