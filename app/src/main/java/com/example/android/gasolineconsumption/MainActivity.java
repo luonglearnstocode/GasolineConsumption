@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 fuelAmount.add(Integer.parseInt(datumsplitted[2]));
             }
 
+
             //add value to distances list - difference of odometer value
             for (int i = 1; i < odometerValue.size(); i++) {
                 distances.add(odometerValue.get(i) - odometerValue.get(i - 1));
@@ -203,16 +204,16 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < distances.size(); i++) {
                 consumption.add((double) fuelAmount.get(i + 1) / distances.get(i) * 100);
             }
-            double sum = 0;
+
+            double sumFuel = 0;
+            double sumDistance = 0;
             averageLkm = 0;
             maxLkm = 0;
             minLkm = consumption.get(0);
-            //minLkm = 0;
             lastLkm = 0;
-            //calculate the average of consumption, max and min
+
+            //calculate max and min consumption
             for (double value : consumption) {
-                sum += value;
-                averageLkm = sum / consumption.size();
                 if (value > maxLkm) {
                     maxLkm = value;
                 }
@@ -222,6 +223,13 @@ public class MainActivity extends AppCompatActivity {
                 lastLkm = value;
             }
 
+            //calculate the average consumption
+            for (int i = 1; i < fuelAmount.size(); i++) {
+                sumFuel += fuelAmount.get(i);
+            }
+            sumDistance = odometerValue.get(odometerValue.size() - 1) - odometerValue.get(0);//last odometer value - first odometer value
+            averageLkm = sumFuel / sumDistance * 100;
+
             //result for Mpg unit
             averageMpg = 235.214 / averageLkm;
             maxMpg = 235.214 / maxLkm;
@@ -230,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
             unit = "lkm";
 
+            //set advise for driver about fuel efficiency
             if (averageLkm > 20) {
                 advise = "You should consider buying a new car!";
             } else if (averageLkm > 10) {
@@ -243,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
             }
             advise_text_view.setText(advise);
 
+            //distances travelled in an amount of time
             sum_hourly_km = 0;
             sum_minute_km = 0;
             for (String datum : data) {
